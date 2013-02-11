@@ -42,7 +42,7 @@ var ChunkedStream = function(wrappedStream, chunkSize) {
 
 	var bytesWrittenThisChunk = 0;
 
-	this.source.on('data', function(data) {
+	self.source.on('data', function(data) {
 		var newBytesWritten = bytesWrittenThisChunk + data.length;
 
 		// If the data is going to push us over the threshold...
@@ -77,17 +77,18 @@ var ChunkedStream = function(wrappedStream, chunkSize) {
 		
 	});
 
-	// If the source stream actually ends, pass that on.
-	this.source.on('end', function() {
-		self.actuallyEnded = true;
-		self.readable = false;
-		self.emit('end');
-		self.emit('streamend');
+	['end','close','error'].forEach(function(eventName){
+		self.source.on(eventName, function() {
+			self.actuallyEnded = true;
+			self.readable = false;
+			self.emit(eventName);
+			self.emit('streamend');
+		});
 	});
+
 };
 
 util.inherits(ChunkedStream, Stream);
-
 
 ChunkedStream.prototype.pause = function() {
 	this.source.pause();
