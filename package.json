@@ -1,0 +1,20 @@
+{
+  "name": "chunked-input-stream",
+  "description": "Break input stream data into chunks with a maximum length",
+  "keywords": ["stream"],
+  "main": "./index.js",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/UniversityOfWarwick/chunked-input-stream.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "~1.8.1",
+    "should": "~1.2.1",
+    "grunt-simple-mocha": "~0.2.0"
+  },
+  "engines": {
+    "node": "*"
+  }
+}
